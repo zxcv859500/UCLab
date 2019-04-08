@@ -20,7 +20,10 @@ def get_request(client_id, ip='121.179.45.130', port=15300):
     # request_string = '#AQS_REQ,01082238595,105,0,0!'
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((ip, port))
+    try:
+        sock.connect((ip, port))
+    except:
+        return '', ''
 
     # request_byte = bytes(request_string, 'utf-8')
     reply = ""
