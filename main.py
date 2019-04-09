@@ -282,6 +282,8 @@ class Application(Frame):
         self.cur_recv = None
         self.server_error_cnt = 0
         self.board_error_cnt = 0
+        self.server_error = False
+        self.board_error = False
 
         # Load Value
         self.load()
@@ -332,12 +334,24 @@ class Application(Frame):
             new_string += ' '
         return new_string
 
+    def error_update(self):
+        if self.board_error is True and self.server_error is True:
+            self.error_label['text'] = '서버 통신 에러, 인터넷 연결을 확인해주세요.\n' + \
+                                       '보드 통신 에러, 보드 연결을 확인해주세요.'
+        elif self.server_error is True:
+            self.error_label['text'] = '서버 통신 에러, 인터넷 연결을 확인해주세요.'
+        elif self.board_error is True:
+            self.error_label['text'] = '보드 통신 에러, 보드 연결을 확인해주세요.'
+        else:
+            self.error_label['text'] = 'No Error'
+
     def start_timer(self):
         timer = threading.Timer(1, self.start_timer)
         timer.start()
 
         s = datetime.datetime.now()
         s = str(s).split('.')[0]
+        self.error_update()
         try:
             self.datetime_label['text'] = s
         except RuntimeError:
@@ -360,23 +374,15 @@ class Application(Frame):
                 now = str(now).split('.')[0]
                 req_data = board.send_data(self.ser, self.cur_recv, now)
                 if req_data.__contains__('Port'):
-                    self.ser = board.connect(self.data['port_name'], self.data['port_rate'])
-                    self.board_state_label['text'] = '이상'
-                    self.board_error_cnt += 1
-                    if self.board_error_cnt >= 4 and not self.error_label['text'].__contains__('보드'):
-                        if self.error_label['text'] != "No Error":
-                            self.error_label['text'] += '\n'
-                            self.error_label['text'] += '보드 통신 에러, 보드 연결을 확인해주세요.'
-                        else:
-                            self.error_label['text'] = '보드 통신 에러, 보드 연결을 확인해주세요.'
-                else:
-                    self.board_error_cnt = 0
                     self.board_req_time_label['text'] = now
-                    self.error_label['text'].replace('\n', '')
-                    self.error_label['text'].replace('보드 통신 에러, 보드 연결을 확인해주세요.', '')
-                    if self.error_label['text'] == '':
-                        self.error_label['text'] = 'No Error'
-                self.board_req_label['text'] = '[S]' + self.new_line(req_data)
+                    self.board_error = True
+                    self.board_state_label['text'] = '이상'
+                    self.ser = None
+                else:
+                    self.board_req_time_label['text'] = now
+                    self.board_state_label['text'] = '정상'
+                    self.board_error = False
+                self.board_req_label['text'] = '[S]' + self.new_line(req_data, 145)
                 self.board_count = 0
                 self.board_protector = True
 
@@ -392,17 +398,10 @@ class Application(Frame):
             self.server_state_label['text'] = '이상'
             self.server_error_cnt += 1
             if self.server_error_cnt >= 4 and not self.error_label['text'].__contains__('서버'):
-                if self.error_label['text'] != 'No Error':
-                    self.error_label['text'] += '\n'
-                    self.error_label['text'] += '서버 통신 에러, 인터넷 연결을 확인해주세요.'
-                else:
-                    self.error_label['text'] = '서버 통신 에러, 인터넷 연결을 확인해주세요.'
+                self.server_error = True
             return None
+        self.server_error = False
         self.server_error_cnt = 0
-        self.error_label['text'].replace('\n', '')
-        self.error_label['text'].replace('서버 통신 에러, 인터넷 연결을 확인해주세요.', '')
-        if self.error_label['text'] == '':
-            self.error_label['text'] = "No Error"
         self.server_state_label['text'] = '정상'
         now = datetime.datetime.now()
         now = str(now).split('.')[0]

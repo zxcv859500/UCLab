@@ -1,0 +1,5 @@
+@lxpanel --porfile LXDE-pi
+@pcmanfm --desktop --profile LXDE-pi
+lxterminal -e python3 /home/pi/UCLab/main.py
+@xscreensaver -no-splash
+point-rpi

@@ -11,10 +11,10 @@ def connect(port_name, port_rate):
 
 
 def send_data(ser, recvd_data, datetime):
-    if recvd_data is None:
-        return 'No server data'
     if ser is None:
         return 'Port is not connected'
+    if len(recvd_data) <= 0:
+        return 'No server data'
     data = ''
     # data = recvd_data + '\r\n'
 
@@ -27,7 +27,7 @@ def send_data(ser, recvd_data, datetime):
     data += '$' + s
     s = '$' + s
     try:
-        print(ser.write(s.encode()))
+        ser.write(s.encode())
     except:
         return 'Port is not connected'
     time.sleep(1)
@@ -42,10 +42,9 @@ def send_data(ser, recvd_data, datetime):
         data += '$' + insert
         insert = '$' + insert
         try:
-            print(ser.write(insert.encode()))
+            ser.write(insert.encode())
         except:
             return 'Port is not connected'
         time.sleep(1)
-
-    # ser.write(data.encode())
+    print(data)
     return data
