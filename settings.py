@@ -129,7 +129,7 @@ class Settings(Frame):
 
         self.port_var = StringVar()
         port_choice = []
-        for i in range(1, 20):
+        for i in range(0, 20):
             port_choice.append('/dev/ttyUSB' + str(i))
         self.port_var.set('/dev/ttyUSB0')
 
