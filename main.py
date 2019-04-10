@@ -382,7 +382,7 @@ class Application(Frame):
                     self.board_req_time_label['text'] = now
                     self.board_state_label['text'] = '정상'
                     self.board_error = False
-                self.board_req_label['text'] = '[S]' + self.new_line(req_data, 145)
+                self.board_req_label['text'] = '[S]' + self.new_line(req_data, 130)
                 self.board_count = 0
                 self.board_protector = True
 
@@ -407,9 +407,9 @@ class Application(Frame):
         now = str(now).split('.')[0]
 
         self.server_req_time_label['text'] = now
-        self.server_req_label['text'] = '[S]' + self.new_line(req, 157)
+        self.server_req_label['text'] = '[S]' + self.new_line(req, 130)
         self.server_recv_time_label['text'] = now
-        self.server_recv_label['text'] = '[R]' + self.new_line(recv, 157)
+        self.server_recv_label['text'] = '[R]' + self.new_line(recv, 130)
 
         recv = recv.split(',')
         self.clientId_data_label['text'] = recv[1]
