@@ -14,9 +14,9 @@ def send_data(ser, recvd_data, datetime):
     if ser is None:
         return 'Port is not connected'
     if recvd_data is None:
-        return 'No server data'
+        return 'Awaiting response'
     if len(recvd_data) <= 0:
-        return 'No server data'
+        return 'Awaiting response'
     data = ''
     # data = recvd_data + '\r\n'
 
