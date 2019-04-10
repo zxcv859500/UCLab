@@ -13,6 +13,8 @@ def connect(port_name, port_rate):
 def send_data(ser, recvd_data, datetime):
     if ser is None:
         return 'Port is not connected'
+    if recvd_data is None:
+        return 'No server data'
     if len(recvd_data) <= 0:
         return 'No server data'
     data = ''
