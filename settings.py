@@ -192,17 +192,30 @@ class Settings(Frame):
         self.board_close_callback = board_close_callback
         self.save_callback = save_callback
 
-        self.first_var.set(data['client_id'][:3])
-        self.second_var.set(data['client_id'][3:7])
-        self.third_var.set(data['client_id'][7:])
+        if data['client_id'] is not None:
+            self.first_var.set(data['client_id'][:3])
+            self.second_var.set(data['client_id'][3:7])
+            self.third_var.set(data['client_id'][7:])
 
-        self.server_frequency.set(data['server_frequency'])
-        self.method_var.set(data['server_method'])
-        self.port_var.set(data['port_name'])
-        self.rate_var.set(data['port_rate'])
-        self.board_frequency_var.set(data['port_frequency'])
-        self.ip_var.set(data['ip'])
-        self.server_port_var.set(data['port'])
+        if data['server_frequency'] != 0:
+            self.server_frequency.set(data['server_frequency'])
+        if data['server_method'] is not None:
+            self.method_var.set(data['server_method'])
+        if data['port_name'] is not None:
+            self.port_var.set(data['port_name'])
+        if data['port_rate'] is not None:
+            self.rate_var.set(data['port_rate'])
+        if data['port_frequency'] != 0:
+            self.board_frequency_var.set(data['port_frequency'])
+        if data['ip'] is not None:
+            self.ip_var.set(data['ip'])
+        if data['port'] is not None:
+            self.server_port_var.set(data['port'])
+
+        if data['ip'] is None:
+            self.ip_var.set('121.179.45.130')
+        if data['port'] is None:
+            self.server_port_var.set('15300')
 
     def stop(self):
         self.data['running'] = False
