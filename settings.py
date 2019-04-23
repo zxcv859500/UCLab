@@ -3,6 +3,7 @@ import tkinter.font
 import datetime
 import threading
 from certification import new_window
+from route import assign_static_ip
 
 
 class Settings(Frame):
@@ -163,6 +164,31 @@ class Settings(Frame):
         board_frequency_entry = Entry(board_frequency_frame, textvariable=self.board_frequency_var)
         board_frequency_entry.pack(side='left', anchor='w')
 
+        # Client Frame
+        client_frame = Frame(setting_frame, relief='flat', bd=2)
+        client_frame.pack(side='left', anchor='n', padx=50, pady=10)
+        desc_label = Label(client_frame, text='클라이언트 설정')
+        desc_label.pack(side='top', anchor='n')
+
+        # IP Address Assign
+        ip_address_frame = Frame(client_frame, relief='flat', bd=2)
+        ip_address_frame.pack(side='top', anchor='s', fill='both')
+
+        desc_label = Label(ip_address_frame, text='IP 주소 : ')
+        desc_label.pack(side='left', anchor='w')
+
+        self.ip_address_var = StringVar()
+
+        ip_address_entry = Entry(ip_address_frame, textvariable=self.ip_address_var)
+        ip_address_entry.pack(side='left', anchor='w')
+
+        # IP Address Assgin Button
+        ip_address_button_frame = Frame(client_frame, relief='flat', bd=2)
+        ip_address_button_frame.pack(side='top', anchor='s', fill='both')
+
+        ip_address_button = Button(ip_address_button_frame, text='변경', command=self.ip_address_assign)
+        ip_address_button.pack(side='left', anchor='w', padx=60)
+
         # Start Timer
         self.start_timer()
 
@@ -221,6 +247,9 @@ class Settings(Frame):
         self.data['running'] = False
         self.board_close_callback()
 
+    def ip_address_assign(self):
+        assign_static_ip(self.ip_address_var.get())
+
     def change(self):
         client_id = self.first_var.get() + self.second_var.get() + self.third_var.get()
         server_frequency = int(self.server_frequency.get())
@@ -277,7 +306,6 @@ class Settings(Frame):
     def main_callback(self):
         self.pack_forget()
         self.main()
-
 
 
 if __name__ == "__main__":
