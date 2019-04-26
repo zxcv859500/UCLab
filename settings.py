@@ -182,6 +182,30 @@ class Settings(Frame):
         ip_address_entry = Entry(ip_address_frame, textvariable=self.ip_address_var)
         ip_address_entry.pack(side='left', anchor='w')
 
+        # SubnetMask Assign
+        subnetmask_frame = Frame(client_frame, relief='flat', bd=2)
+        subnetmask_frame.pack(side='top', anchor='s', fill='both', padx=2)
+
+        desc_label = Label(subnetmask_frame, text="서브넷 : ")
+        desc_label.pack(side='left', anchor='w')
+
+        self.subnetmask_var = StringVar()
+
+        subnetmask_entry = Entry(subnetmask_frame, textvariable=self.subnetmask_var)
+        subnetmask_entry.pack(side='left', anchor='w')
+
+        # Gateway Assign
+        gateway_frame = Frame(client_frame, relief='flat', bd=2)
+        gateway_frame.pack(side='top', anchor='s', fill='both')
+
+        desc_label = Label(gateway_frame, text="게이트 : ")
+        desc_label.pack(side='left', anchor='w', padx=1)
+
+        self.gateway_var = StringVar()
+
+        gateway_entry = Entry(gateway_frame, textvariable=self.gateway_var)
+        gateway_entry.pack(side='top', anchor='s', fill='both')
+
         # IP Address Assgin Button
         ip_address_button_frame = Frame(client_frame, relief='flat', bd=2)
         ip_address_button_frame.pack(side='top', anchor='s', fill='both')
