@@ -272,7 +272,7 @@ class Settings(Frame):
         self.board_close_callback()
 
     def ip_address_assign(self):
-        assign_static_ip(self.ip_address_var.get())
+        assign_static_ip(self.ip_address_var.get(), self.subnetmask_var.get(), self.gateway_var.get())
 
     def change(self):
         client_id = self.first_var.get() + self.second_var.get() + self.third_var.get()
