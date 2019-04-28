@@ -488,6 +488,7 @@ def refresh_time():
 
 
 if __name__ == "__main__":
+    subprocess.call(shlex.split("pwd"))
     refresh_time()
     window = Tk()
     window.title("AQS Client")
