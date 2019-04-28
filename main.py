@@ -487,8 +487,15 @@ def refresh_time():
         return False
 
 
+def update():
+    if platform.system() != "Linux":
+        print("Not Linux system")
+        return False
+    subprocess.call(shlex.split("cd /home/pi/UCLab && git pull"))
+
+
 if __name__ == "__main__":
-    subprocess.call(shlex.split("pwd"))
+    update()
     refresh_time()
     window = Tk()
     window.title("AQS Client")
