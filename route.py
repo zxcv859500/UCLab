@@ -23,6 +23,6 @@ def assign_static_ip(ip_address, subnetmask, gateway):
         print("Unacceptable gateway")
         return None
     subprocess.call(shlex.split("sudo ifconfig eth0 down"))
-    subprocess.call(shlex.split("sudo ifconfig eth0 {ip} netmask {sub} broadcast {gate}")
-                    .format(ip=ip_address, sub=subnetmask, gate=gateway))
+    subprocess.call(shlex.split("sudo ifconfig eth0 {ip} netmask {sub} broadcast {gate}"
+                                .format(ip=ip_address, sub=subnetmask, gate=gateway)))
     subprocess.call(shlex.split("sudo ifconfig eth0 up"))
