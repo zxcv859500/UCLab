@@ -9,6 +9,9 @@ import board
 import os
 from settings import Settings
 import pickle
+import subprocess
+import shlex
+import platform
 
 
 class Application(Frame):
@@ -471,10 +474,25 @@ class Application(Frame):
         return recv.split(':')[1]
 
 
+def refresh_time():
+    if platform.system() != "Linux":
+        print("Not Linux system")
+        return False
+    try:
+        subprocess.call(shlex.split("rdate -s time.bora.net"))
+        return True
+    except FileNotFoundError:
+        print("rdate not installed")
+        subprocess.call(shlex.split("sudo apt-get install time.bora.net"))
+        return False
+
+
 if __name__ == "__main__":
+    refresh_time()
     window = Tk()
     window.title("AQS Client")
     window.geometry("1150x600+100+100")
     window.resizable(False, False)
     app = Application(window)
     app.mainloop()
+    refresh_time()
