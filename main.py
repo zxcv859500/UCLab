@@ -491,7 +491,9 @@ def update():
     if platform.system() != "Linux":
         print("Not Linux system")
         return False
-    subprocess.call(shlex.split("cd /home/pi/UCLab && git pull"))
+    subprocess.call(shlex.split("cd /home/pi/UCLab"))
+    subprocess.call(shlex.split("git pull"))
+    subprocess.call(shlex.split("cd"))
 
 
 if __name__ == "__main__":
