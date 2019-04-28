@@ -479,7 +479,7 @@ def refresh_time():
         print("Not Linux system")
         return False
     try:
-        subprocess.call(shlex.split("rdate -s time.bora.net"))
+        subprocess.call(shlex.split("sudo rdate -s time.bora.net"))
         return True
     except FileNotFoundError:
         print("rdate not installed")
