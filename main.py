@@ -472,6 +472,7 @@ class Application(Frame):
 
 
 if __name__ == "__main__":
+    print('new')
     window = Tk()
     window.title("AQS Client")
     window.geometry("1150x600+100+100")
