@@ -496,6 +496,7 @@ def update():
 
 
 if __name__ == "__main__":
+    print('current')
     update()
     refresh_time()
     window = Tk()
